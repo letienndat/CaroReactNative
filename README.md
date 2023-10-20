@@ -1,4 +1,5 @@
-# CARO REACT NATIVE
+# CARO
+Game Caro using ReactNative
 
 ## Required
 - NodeJS
@@ -19,7 +20,7 @@ npx expo start
 - Scan QR or use simulator, device real to run app
 
 ## Image Project Demo
-<img src="./images/demo_1.png">
-<img src="./images/demo_2.png">
+<img width="200px" src="./images/demo_1.png">
+<img width="200px" src="./images/demo_2.png">
 
 # Goodluck!
