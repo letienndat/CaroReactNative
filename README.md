@@ -4,7 +4,7 @@ Game Caro using ReactNative
 ## Required
 - NodeJS
 - Expo App + Access the same local network (Scan QR)
-- SDK (Simulator Android or Device real)
+- SDK (Android Simulator or Device real)
 - MacOS and XCode (Simulator iOS)
 
 ## Install and Run

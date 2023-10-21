@@ -1,11 +1,19 @@
-import { BackHandler, Button, Image, StyleSheet, View } from "react-native";
+import {
+	BackHandler,
+	Image,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from "react-native";
 import iconCaro from "../../images/icon_caro.png";
 import { useNavigation } from "@react-navigation/native";
-import { countBoxHeight, countBoxWidth, useApp } from "../../App";
 import { useEffect } from "react";
 import avatarPlayer1 from "../../images/player_1.png";
 import avatarPlayer2 from "../../images/player_2.png";
 import { NAME_PLAYER_1, NAME_PLAYER_2 } from "@env";
+import { useAppContext } from "../../AppContext";
+import { countBoxHeight, countBoxWidth } from "../../info/info";
 
 const ContentStart = () => {
 	const nav = useNavigation();
@@ -20,7 +28,7 @@ const ContentStart = () => {
 		setTurnFirst,
 		setUsers,
 		setIsEnd,
-	} = useApp();
+	} = useAppContext();
 
 	const handleClickStart = () => {
 		nav.navigate("Play");
@@ -72,13 +80,22 @@ const ContentStart = () => {
 		<View style={styles.container}>
 			<Image style={styles.image} source={iconCaro}></Image>
 			{isStart && (
-				<Button
-					title="REMUSE"
+				<TouchableOpacity
+					style={styles.button}
 					onPress={() => nav.navigate("Play")}
-				></Button>
+				>
+					<Text style={styles.text}>REMUSE</Text>
+				</TouchableOpacity>
 			)}
-			<Button title="START NOW" onPress={handleClickStart}></Button>
-			<Button title="QUIT" onPress={() => BackHandler.exitApp()}></Button>
+			<TouchableOpacity style={styles.button} onPress={handleClickStart}>
+				<Text style={styles.text}>START NOW</Text>
+			</TouchableOpacity>
+			<TouchableOpacity
+				style={styles.button}
+				onPress={() => BackHandler.exitApp()}
+			>
+				<Text style={styles.text}>QUIT</Text>
+			</TouchableOpacity>
 		</View>
 	);
 };
@@ -92,10 +109,24 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		alignItems: "center",
 		justifyContent: "center",
+		gap: 15,
 	},
 	image: {
 		width: 150,
 		height: 150,
 		marginBottom: 10,
+	},
+	button: {
+		width: 120,
+		backgroundColor: "#267BFB",
+		justifyContent: "center",
+		alignItems: "center",
+		paddingTop: 5,
+		paddingBottom: 5,
+	},
+	text: {
+		fontSize: 15,
+		fontWeight: 400,
+		color: "#fff",
 	},
 });

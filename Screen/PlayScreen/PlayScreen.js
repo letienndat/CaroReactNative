@@ -1,9 +1,10 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Player from "./Player";
 import ContentPlay from "./ContentPlay";
 import { useEffect, useState } from "react";
-import { countBoxHeight, countBoxWidth, useApp } from "../../App";
 import { useNavigation } from "@react-navigation/native";
+import { useAppContext } from "../../AppContext";
+import { countBoxHeight, countBoxWidth } from "../../info/info";
 
 export default function PlayScreen() {
 	const {
@@ -19,8 +20,9 @@ export default function PlayScreen() {
 		setItems,
 		setUsers,
 		setTurn,
-	} = useApp();
+	} = useAppContext();
 	const [clickFirst, setClickFirst] = useState(undefined);
+	const [focusBox, setFocusBox] = useState(undefined);
 	const nav = useNavigation();
 
 	const handleClickTryAgain = () => {
@@ -29,6 +31,7 @@ export default function PlayScreen() {
 		setElementX([]);
 		setElementO([]);
 		setClickFirst(undefined);
+		setFocusBox(undefined);
 		setItems((items) => {
 			return [
 				...Array(countBoxHeight)
@@ -79,6 +82,8 @@ export default function PlayScreen() {
 				<ContentPlay
 					clickFirst={clickFirst}
 					onClickFirst={setClickFirst}
+					focusBox={focusBox}
+					onFocusBox={setFocusBox}
 				/>
 				<Player
 					avatarPlayer={users[0].avatar}
@@ -91,24 +96,30 @@ export default function PlayScreen() {
 			{isEnd && (
 				<View style={styles.faded}>
 					<Text style={styles.title}>END GAME</Text>
-					<Text style={styles.name}>{users[1].name.toUpperCase()}</Text>
+					<Text style={styles.name}>
+						{users[1].name.toUpperCase()}
+					</Text>
 					<View style={styles.score}>
 						<Text style={styles.scoreNumber}>{users[1].score}</Text>
 						<Text style={styles.vs}>-</Text>
 						<Text style={styles.scoreNumber}>{users[0].score}</Text>
 					</View>
-					<Text style={styles.name}>{users[0].name.toUpperCase()}</Text>
-					<View style={styles.button}>
-						<Button
-							color="#FDF0F0"
-							title="TRY AGAIN"
+					<Text style={styles.name}>
+						{users[0].name.toUpperCase()}
+					</Text>
+					<View style={styles.viewButton}>
+						<TouchableOpacity
+							style={styles.button}
 							onPress={handleClickTryAgain}
-						></Button>
-						<Button
-							color="#FDF0F0"
-							title="BACK TO MENU"
+						>
+							<Text style={styles.text}>TRY AGAIN</Text>
+						</TouchableOpacity>
+						<TouchableOpacity
+							style={styles.button}
 							onPress={handleClickBackToMenu}
-						></Button>
+						>
+							<Text style={styles.text}>BACK TO MENU</Text>
+						</TouchableOpacity>
 					</View>
 				</View>
 			)}
@@ -165,7 +176,21 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		color: "#132043",
 	},
-	button: {
+	viewButton: {
 		marginTop: 20,
+		gap: 15,
+	},
+	button: {
+		width: 120,
+		backgroundColor: "#267BFB",
+		justifyContent: "center",
+		alignItems: "center",
+		paddingTop: 5,
+		paddingBottom: 5,
+	},
+	text: {
+		fontSize: 15,
+		fontWeight: 400,
+		color: "#fff",
 	},
 });

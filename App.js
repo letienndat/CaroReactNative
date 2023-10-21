@@ -2,36 +2,12 @@ import StartScreen from "./Screen/StartScreen/StartScreen";
 import PlayScreen from "./Screen/PlayScreen/PlayScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { createContext, useContext, useState } from "react";
-import { Dimensions } from "react-native";
+import { useState } from "react";
 import avatarPlayer1 from "./images/player_1.png";
 import avatarPlayer2 from "./images/player_2.png";
 import { NAME_PLAYER_1, NAME_PLAYER_2 } from "@env";
-
-const AppContex = createContext();
-
-export const { width, height } = Dimensions.get("screen");
-export const widthMax = width - 30;
-export const heightMax = height - 210;
-export const widthBox = 30;
-export const heightBox = 30;
-export const countBoxWidth = Math.floor(widthMax / widthBox);
-export const countBoxHeight = Math.floor(heightMax / heightBox);
-export const widthRedundant = widthMax - countBoxWidth * widthBox;
-export const heightRedundant = heightMax - countBoxHeight * heightBox;
-export const itemsGenerate = [
-	...Array(countBoxHeight)
-		.fill(0)
-		.map((item, i) =>
-			Array(countBoxWidth)
-				.fill(0)
-				.map((_item, j) => ({
-					id: `${i + 1}_${j + 1}`,
-					status: undefined,
-					win: false,
-				}))
-		),
-];
+import { AppContext } from "./AppContext";
+import { itemsGenerate } from "./info/info";
 
 export default function App() {
 	const Stack = createStackNavigator();
@@ -64,7 +40,7 @@ export default function App() {
 	]);
 
 	return (
-		<AppContex.Provider
+		<AppContext.Provider
 			value={{
 				isStart,
 				setIsStart,
@@ -102,10 +78,6 @@ export default function App() {
 					/>
 				</Stack.Navigator>
 			</NavigationContainer>
-		</AppContex.Provider>
+		</AppContext.Provider>
 	);
-}
-
-export function useApp() {
-	return useContext(AppContex);
 }

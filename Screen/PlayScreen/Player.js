@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function Player(props) {
+
 	return (
 		<View style={styles.container}>
 			<Image

@@ -1,4 +1,4 @@
-import { countBoxHeight, countBoxWidth } from "../App";
+import { countBoxHeight, countBoxWidth } from "../info/info";
 
 export const handle = (target, arr) => {
 	const [a, b] = target.split("_");
@@ -167,4 +167,28 @@ const crossLeft = (target, arr) => {
 
 const revert = (arr) => {
 	return arr.map((e) => `${e[0]}_${e[1]}`);
+};
+
+const wait = (ml = 0) => {
+	return new Promise((resolve, reject) => {
+		return setTimeout(resolve, ml);
+	});
+};
+
+export const prevSecond = async (second) => {
+	await wait(1000);
+
+	if (second === 0) {
+		return {
+			status: false,
+		};
+	}
+	return {
+		status: true,
+		data: second - 1,
+	};
+};
+
+export const formatSecond = (second) => {
+	return "00:" + `${second < 10 ? "0" + second : second}`;
 };

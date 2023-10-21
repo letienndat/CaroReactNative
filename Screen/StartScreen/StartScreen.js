@@ -3,7 +3,6 @@ import ContentStart from "./ContentStart";
 import FooterStart from "./FooterStart";
 
 const StartScreen = () => {
-
 	return (
 		<View style={styles.container}>
 			<ContentStart />

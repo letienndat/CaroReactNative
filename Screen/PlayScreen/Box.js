@@ -1,8 +1,9 @@
 import { faO, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { heightBox, useApp, widthBox } from "../../App";
 import { checkEvent, handle } from "../../service/handle";
+import { useAppContext } from "../../AppContext";
+import { heightBox, widthBox } from "../../info/info";
 
 export default function Box(props) {
 	const {
@@ -16,7 +17,7 @@ export default function Box(props) {
 		users,
 		setUsers,
 		setIsEnd,
-	} = useApp();
+	} = useAppContext();
 
 	const checkBox = props.items
 		.flatMap((item) => [...item])
@@ -97,6 +98,7 @@ export default function Box(props) {
 							});
 						});
 					}
+					props.onFocusBox(props.id);
 				} else {
 					props.onClickFirst(props.id);
 				}
@@ -111,9 +113,12 @@ export default function Box(props) {
 					styles.container,
 					{ width: widthBox, height: heightBox },
 					props.clickFirst === props.id && {
-						backgroundColor: "gray",
+						backgroundColor: "#BEADFA",
 					},
-					props.win && { backgroundColor: "gray" },
+					props.focusBox === props.id && {
+						backgroundColor: "#B3A492",
+					},
+					props.win && { backgroundColor: "#6A9C89" },
 				]}
 			>
 				{checkBox !== undefined && (

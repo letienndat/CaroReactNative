@@ -1,9 +1,10 @@
 import { StyleSheet, View } from "react-native";
 import Box from "./Box";
-import { heightRedundant, useApp, widthRedundant } from "../../App";
+import { useAppContext } from "../../AppContext";
+import { heightRedundant, widthRedundant } from "../../info/info";
 
 export default function ContentPlay(props) {
-	const { items, setItems } = useApp();
+	const { items, setItems } = useAppContext();
 
 	return (
 		<View
@@ -29,6 +30,8 @@ export default function ContentPlay(props) {
 							onClickFirst={props.onClickFirst}
 							items={items}
 							onItems={setItems}
+							focusBox={props.focusBox}
+							onFocusBox={props.onFocusBox}
 						/>
 					);
 				})}
